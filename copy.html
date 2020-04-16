@@ -1,0 +1,22 @@
+<body>
+
+    <div  id = "main">
+        <div id="vtier" class="heading">
+            <button id="btn">Clone Btn</button>
+            <input type="file" name="" id="">
+        </div>
+    </div>
+    
+    <script>
+        (function () {
+            var main = document.getElementById("main"),
+                vtier = document.getElementById("vtier").cloneNode(true);
+    
+            document.getElementById("btn").addEventListener("click", addClone);
+    
+            function addClone() {
+                main.appendChild(vtier.cloneNode(true));
+            }
+        }());
+    </script>
+    </body>

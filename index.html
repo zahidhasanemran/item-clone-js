@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.:: Item-clone-JS ::.</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+
+    <div class="clone">
+        <div id="clone_box" class="clone__command">
+            <div class="cloned_wrapper" id="item_for_clone">
+                <input class="clone__item" type="file">
+                <a class="clone__button" id="btn" href="">Add</a> 
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        // JavaScript: cloneNode and appendChild not working as expected. Now my question is that why this appends the cloned node i.e. the table with id="item_for_clone#1" only once and not as many times as the CLONE button is pressed ?
+
+        // ANS: Because there is only one clone.
+
+        // What is the purpose of a self executing function in javascript?
+        // ANS: Its all about variable scoping. Variables declared in the self executing function are, by default, only available to code within the self executing function. This allows code to be written without concern of how variables are named in other blocks of javascript code.
+
+        // Cloning a node copies all of its attributes and their values, including intrinsic (inline) listeners. It does not copy event listeners added using addEventListener() or those assigned to element properties (e.g., node.onclick = someFunction). Additionally, for a <canvas> element, the painted image is not copied.
+
+
+        // AppendChild only works once. whhy?
+        // ANS: This is because a DOM node can only exist in one place in the DOM. When you call lineitems.appendChild(newstuff.firstChild), it is removing it from the original place and adding it to the new location. This means it will only work once. when we clone a item maybe it has a refference point or number. this is why we need to copy it from another copy. 
+
+        var x = 10;
+
+        (function(){
+            var clone_box = document.getElementById("clone_box");
+            var item_for_clone = document.getElementById("item_for_clone").cloneNode(true);
+            var x = 0;
+            console.log("x = "+x);
+            
+            
+            document.getElementById("btn").addEventListener("click", clonedItem);
+
+            function clonedItem(e){
+                e.preventDefault();
+                x++;
+                item_for_clone.children[1].outerHTML = `<a class="clone__button" id="close${x}" href="">Delete</a>`;
+                clone_box.appendChild(item_for_clone.cloneNode(true));
+                
+                var newid =clone_box.children[x].id;
+                newid = newid+"__"+x;
+                console.log(newid);
+                clone_box.children[x].setAttribute("id", newid);
+            }
+
+        }());
+
+        console.log("Global x = "+x);
+
+    </script>
+</body>
+</html>
